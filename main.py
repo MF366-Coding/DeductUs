@@ -311,15 +311,16 @@ def psychic(_indexer: int = 0) -> list:
 
     m = random.randint(1, 9)
     
-    while m in killer or m in deaths:
+    while m in killer or m in deaths or m in players_list:
         m = random.randint(1, 9)
-        
+    
+    players_list.append(m)
+    
     n = random.randint(1, 9)
     
-    while n in killer or n in deaths:
+    while n in killer or n in deaths or n in players_list:
         n = random.randint(1, 9)
 
-    players_list.append(m)
     players_list.append(n)
 
     random.shuffle(players_list)
@@ -413,3 +414,4 @@ else:
     print(f"\n\nGAME OVER!\nPlayer {who_is_it()} was the Impostor!")
 
 print(f"\n\n{Fore.LIGHTMAGENTA_EX}Thank you for playing this game! <3{Fore.RESET}")
+time.sleep(2.0)
