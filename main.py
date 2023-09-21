@@ -3,27 +3,74 @@ import random
 from icecream import ic
 import sys
 from os import system
+from requests import get
+from requests import exceptions as ex_req
 import time
+import json
 
 platform = sys.platform
 force_sim_debug = False
+version = "1.0.0"
+# [i] Initial Release
 
+
+def get_latest() -> str | None:
+    """
+    get_latest verifies for updates
+
+    Returns:
+        str | None: the latest version found on GitHub
+    """
+    latest_version = None
+    
+    try:
+        response = get('https://api.github.com/repos/MF366-Coding/DeductUs/releases/latest', timeout=3.5)
+        data = json.loads(response.text)
+        latest_version = data['tag_name']
+
+    except (ex_req.ConnectTimeout, ex_req.ConnectionError, TimeoutError, ex_req.ReadTimeout):
+        latest_version = None
+        
+    finally:
+        return latest_version
+        
 
 # [!!] Things to uncomment on release and commit
-# ic.disable()
-# force_sim_debug = False
+ic.disable()
+
+# [!!] This one is to stay commented lol 
+# force_sim_debug = True
 
 
 ic.configureOutput("debug statement | ")
 
 def clear():
+    """
+    clear clears the screen/terminal
+
+    It uses the correct command for each OS.
+    """
+    
     if platform == "win32":
         system("cls")
     else:
         system("clear")
 
 clear()
-print(f"{Fore.YELLOW}[!] This is a BETA release.\nThanks to the people testing it!\n{Fore.RED}Deduct{Fore.CYAN}Us{Fore.RESET}\nBy MF366\n--\n\n")
+
+x = get_latest()
+
+print('\n\n\n')
+
+if x == None:
+    print(f"{Fore.RED}[!] Could not check for updates!\n{Fore.GREEN}You are running version {version}.\n\n")
+    time.sleep(1.2)
+
+elif x != version:
+    print(f"{Fore.RED}[!] Your version of DeductUs is either outdated or you're running a BETA version!\n{Fore.YELLOW}You are running version {version}.\n{Fore.GREEN}The latest version is: {x}.\n\n")
+    time.sleep(1.2)
+
+print(f"{Fore.YELLOW}DeductUs  Copyright (C) 2023  MF366\nAlthrought based on Among Us, this game has its own LICENSE!\n{Fore.RED}Deduct{Fore.CYAN}Us{Fore.RESET} {version}\nBy MF366\n--\n\n")
 
 crew = {
     1: False, # white
@@ -98,36 +145,44 @@ def who_is_it(indexer: int = 0) -> int:
     
     return killer[indexer]
 
-def make_better_crew() -> list:
+def make_better_crew(__indexer: int = 0) -> dict:
+    """
+    make_better_crew generates a dictionary based on crew dictionary
+
+    The new dictionary, instead of containing info about everyone's roles, has info about:
+    - Who is alive?
+    - Who is dead?
+    
+    Basically, things you'd see on a meeting in Among Us.
+
+    Args:
+        __indexer (int, optional): the indexer for the deaths list. Defaults to 0 (first one).
+
+    Returns:
+        dict: returns the organized dictionary
+    """
+    
     _bc = {
-        1: None,
-        2: None,
-        3: None,
-        4: None,
-        5: None,
-        6: None,
-        7: None,
-        8: None,
-        9: None
+        1: "Alive",
+        2: "Alive",
+        3: "Alive",
+        4: "Alive",
+        5: "Alive",
+        6: "Alive",
+        7: "Alive",
+        8: "Alive",
+        9: "Alive"
     }
 
-    for _id in range(10):
-        if _id == 0 or _id == 10:
-            pass
-
-        elif crew[_id] == "dead":
-            _bc[_id] = "Dead"
-
-        else:
-            _bc[_id] = "Alive"
-
+    _bc[deaths[__indexer]] = "Dead"
+    
     return _bc
 
 better_crew = make_better_crew()
 
 
 print(f"""{Fore.BLUE}Player List:
-{Fore.YELLOW}0 - You!
+{Fore.YELLOW}0 - You! (Detective)
 {Fore.CYAN}1 - {better_crew[1]}
 2 - {better_crew[2]}
 3 - {better_crew[3]}
@@ -233,6 +288,23 @@ Talk to the Psychic and he'll tell you all the suspicious he has.
 input('\nHit ENTER to talk to the Psychic... ')
 
 def psychic(_indexer: int = 0) -> list:
+    """
+    psychic is the function associated with the Psychic role
+
+    This role will tell you his suspicious.
+    
+    One of the IDs he says is the Impostor.
+    The others are inocent.
+
+    Args:
+        _indexer (int, optional): which Impostor should be used from the killer list (in this version there's only 1 Impostor!). Defaults to 0 (first one).
+
+    Returns:
+        list: returns the list with the 3 sus players
+        
+    Note that the list is shuffled before being passed to avoid people knowing who the Impostor is exactly.
+    """
+    
     players_list = []
 
     players_list.append(killer[_indexer])
@@ -340,5 +412,4 @@ else:
     print(f"{Fore.RED}...was not the Impostor!")
     print(f"\n\nGAME OVER!\nPlayer {who_is_it()} was the Impostor!")
 
-print(f"\n\n{Fore.YELLOW}Thank you for playing the BETA release of this game! <3{Fore.RESET}")
-
+print(f"\n\n{Fore.LIGHTMAGENTA_EX}Thank you for playing this game! <3{Fore.RESET}")
