@@ -31,8 +31,7 @@ def get_latest() -> str | None:
     except (ex_req.ConnectTimeout, ex_req.ConnectionError, TimeoutError, ex_req.ReadTimeout):
         latest_version = None
         
-    finally:
-        return latest_version
+    return latest_version
         
 
 # [!!] Things to uncomment on release and commit
@@ -122,8 +121,6 @@ if ic.enabled and force_sim_debug:
             # [!?] Not needed anymore
             # _f.write(f"dead: {str(dead)}\ncrew: {str(crew)}\ndeaths: {str(deaths)}\nkiller: {str(killer)}")
             _f.write(f"\n{dead in killer}\n{reporter in deaths}\n{dead in deaths}")
-
-    raise SystemExit
 
 print(f"{Fore.RED}DEAD BODY REPORTED!{Fore.RESET}\n{Fore.LIGHTRED_EX}Dead body: Player {dead}\n{Fore.MAGENTA}Player who reported: Player {reporter}\n\n{Fore.RESET}")
 
