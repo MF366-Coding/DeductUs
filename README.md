@@ -3,6 +3,8 @@
 
 # [Check it out on itch.io](https://mf366.itch.io/DeductUs)
 
+# v2.0.0 is offically planned
+
 ➡ [Contact me](mailto:real_mf366@yahoo.com)
 
 🌐 [I'm online at: mf366-coding.github.io](https://mf366-coding.github.io)
