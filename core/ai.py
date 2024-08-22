@@ -24,7 +24,8 @@ import random
 
 
 class ImpostorAI:
-    def __init__(self, player_color: tuple[int, int, int]):
+    def __init__(self, player_color: tuple[int, int, int], difficulty_instance: object):
+        self._DIFFICULTY = difficulty_instance
         self._status = [player_color[0], player_color[1], player_color[2], False, 0, 0, 0, 0, False, False, 0, False, False]
         
     def kill_crewmate(self, lobby_class):
@@ -45,5 +46,9 @@ class ImpostorAI:
             
         who_to_kill = random.choice(alive_crew) # [i] bye bye lol
         
+        return who_to_kill        
         
-                
+    def behave_in_meeting(self):
+        # TODO
+        raise NotImplementedError('my brain is fried')
+        

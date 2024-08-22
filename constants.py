@@ -3,7 +3,7 @@
 from colorama import Fore
 
 # [*] Difficulty Constants
-RECRUIT_DIFF = 1 # [i] Killer Recruit
+BEGINNER_DIFF = 1 # [i] Killer Recruit
 SABOTEUR_DIFF = 2 # [i] Sneaky Saboteur
 PRO_HITMAN_DIFF = 3 # [i] Professional Hitman
 LEGEND_DIFF = 4 # [i] Legend of the Lies
@@ -11,6 +11,7 @@ RANDOM_DIFF = 5 # [i] Thrilling Surprise
 
 # [*] Values per Difficulty
 RECRUIT_VALUES: dict[str, tuple[int, int]] = {
+    "NAME": "Begginer of the Killing",
     "IMPOSTOR_FIGHT_BACK": (99, 100),
     "CREW_FIGHT_BACK": (70, 75),
     "IMPOSTOR_GIVE_UP": (1, 5),
@@ -41,6 +42,7 @@ RECRUIT_VALUES: dict[str, tuple[int, int]] = {
 }
 
 SABOTEUR_VALUES: dict[str, tuple[int, int]] = {
+    "NAME": "Sneaky Saboteur",
     "IMPOSTOR_FIGHT_BACK": (60, 80),
     "CREW_FIGHT_BACK": (80, 95),
     "IMPOSTOR_GIVE_UP": (0, 3),
@@ -66,6 +68,7 @@ SABOTEUR_VALUES: dict[str, tuple[int, int]] = {
 }
 
 PRO_HITMAN_VALUES: dict[str, tuple[int, int]] = {
+    "NAME": "Professional Hitman",
     "IMPOSTOR_FIGHT_BACK": (40, 60),
     "CREW_FIGHT_BACK": (50, 60),
     "IMPOSTOR_GIVE_UP": (0, 1),
@@ -91,6 +94,7 @@ PRO_HITMAN_VALUES: dict[str, tuple[int, int]] = {
 }
 
 LEGEND_VALUES: dict[str, tuple[int, int]] = {
+    "NAME": "Legend of the Lies",
     "IMPOSTOR_FIGHT_BACK": (50, 60),
     "CREW_FIGHT_BACK": (45, 60),
     "IMPOSTOR_GIVE_UP": (0, 1),
@@ -116,6 +120,7 @@ LEGEND_VALUES: dict[str, tuple[int, int]] = {
 }
 
 RANDOM_VALUES: dict[str, tuple[int, int]] = {
+    "NAME": "Thrilling Surprise",
     "IMPOSTOR_FIGHT_BACK": (0, 100),
     "CREW_FIGHT_BACK": (0, 100),
     "IMPOSTOR_GIVE_UP": (0, 6),
